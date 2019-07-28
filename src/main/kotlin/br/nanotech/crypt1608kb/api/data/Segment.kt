@@ -54,6 +54,10 @@ class Segment{
         byteData.forEach { byte -> data.add(Packet(byte)) }
     }
 
+    fun clearData(){
+        data = mutableListOf()
+    }
+
     fun clone():Segment{
         return Segment(data.toMutableList(),Charset.forName(charset.name()))
     }

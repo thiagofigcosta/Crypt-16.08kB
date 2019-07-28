@@ -4,6 +4,7 @@ import br.nanotech.crypt1608kb.api.data.Segment
 import kotlin.experimental.inv
 
 class Invert : CryptOperation(){
+
     override fun crypt(data: Segment) {
         invert(data)
     }
