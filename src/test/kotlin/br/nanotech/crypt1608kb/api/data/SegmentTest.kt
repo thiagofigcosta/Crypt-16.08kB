@@ -3,11 +3,12 @@ package br.nanotech.crypt1608kb.api.data
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
+import kotlin.math.ceil
 
 
 internal class SegmentTest {
 
-    private val rawData = "Oi, como vai você?"
+    private val rawData = "Oi, como vai voce?"
 
     @Test
     fun toString1() {
@@ -32,5 +33,14 @@ internal class SegmentTest {
         segment1.setData("lele")
         assertEquals(segment1, segment2)
         assertNotEquals(segment1, clone)
+    }
+
+    @Test
+    fun testPacketSize(){
+        val data=Segment(rawData,1)
+        assertEquals(rawData.length, data.getSize())
+        for (i in 2..rawData.length){
+            assertEquals( ceil (rawData.length/i.toFloat()).toInt(), Segment(rawData,i).getSize())
+        }
     }
 }

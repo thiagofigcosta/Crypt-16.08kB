@@ -4,18 +4,18 @@ import br.nanotech.crypt1608kb.api.data.Packet
 import br.nanotech.crypt1608kb.api.data.Segment
 
 
-class Groupify(size:Int, maxValue:Int) : CryptOperation(){
+class Groupify(packetSize:Int, maxValue:Int) : CryptOperation(){
 
-    private val groupSize:Int = size
+    private val groupSize:Int = packetSize
 
     private val maxValue:Int = maxValue
 
 
-    override fun crypt(data: Segment) {
+    override fun crypt(data: Segment) { // TODO optimize me
         val original = data.getData()
         data.clearData()
-        original.withIndex().groupBy { iByte -> iByte.index/groupSize}
-            .map { iByteList -> iByteList.value
+        original.withIndex().groupBy { iPacket -> iPacket.index/groupSize}
+            .map { iPacketList -> iPacketList.value
                 .map { packet -> packet.value.getData() } }
             .forEach{ listOfByteArray ->
                 val listOfBytes = mutableListOf<Byte>()
@@ -26,11 +26,22 @@ class Groupify(size:Int, maxValue:Int) : CryptOperation(){
             }
     }
 
-    override fun decrypt(data: Segment) {
+    override fun decrypt(data: Segment) { // TODO optimize me
         val original = data.getData()
         data.clearData()
-        original.withIndex().forEach{ iPacket ->
-            iPacket.
+        original.map { packet -> packet.getData() }.forEach { byteArray ->
+            val byte2DList=byteArray.withIndex().groupBy { iByteArrayList -> iByteArrayList.index/groupSize}
+                .map { iPacketList -> iPacketList.value
+                    .map { packet -> packet.value } }
+            if (byte2DList.size == 1){
+                byte2DList[0].forEach{ byte ->
+                    data.getData().add(Packet(byte))
+                }
+            }else{
+                byte2DList.forEach { byteList ->
+                    data.getData().add(Packet(byteList.toByteArray()))
+                }
+            }
 
         }
     }
