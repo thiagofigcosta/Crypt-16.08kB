@@ -11,7 +11,7 @@ internal class GroupifyTest {
     private val groupify3 = Groupify(3)
 
     @Test
-    fun cryptAndDecryptOneTime() {
+    fun encryptAndDecryptOneTime() {
         val data = Segment("oie", 1)
         val original = data.clone()
         groupify3.encrypt(data)
@@ -28,7 +28,7 @@ internal class GroupifyTest {
     }
 
     @Test
-    fun cryptAndDecryptTwoTimes() {
+    fun encryptAndDecryptTwoTimes() {
         val data = Segment("0123456789", 1)
         val original = data.clone()
         groupify3.encrypt(data)
@@ -53,7 +53,7 @@ internal class GroupifyTest {
     }
 
     @Test
-    fun cryptAndDecryptWithMultipleInstances() {
+    fun encryptAndDecryptWithMultipleInstances() {
         val groupify4 = Groupify(4)
         val groupify30 = Groupify(30)
         val groupify17 = Groupify(17)

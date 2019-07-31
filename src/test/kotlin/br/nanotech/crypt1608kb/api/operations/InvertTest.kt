@@ -9,7 +9,7 @@ internal class InvertTest {
     private val invert = Invert()
 
     @Test
-    fun crypt() {
+    fun encrypt() {
         val data = Segment(String(byteArrayOf(0b00001111.toByte()), Charsets.US_ASCII), Charsets.US_ASCII)
         invert.encrypt(data)
         assertEquals(String(byteArrayOf(0b11110000.toByte()), Charsets.US_ASCII), data.toString())
