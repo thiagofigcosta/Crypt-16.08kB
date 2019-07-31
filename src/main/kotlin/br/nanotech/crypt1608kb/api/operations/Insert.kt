@@ -4,7 +4,9 @@ import br.nanotech.crypt1608kb.api.data.Packet
 import br.nanotech.crypt1608kb.api.data.Segment
 import br.nanotech.crypt1608kb.api.exception.InvalidCryptException
 import br.nanotech.crypt1608kb.api.operations.enums.InsertSourceType
-import br.nanotech.crypt1608kb.api.operations.enums.InsertSourceType.*
+import br.nanotech.crypt1608kb.api.operations.enums.InsertSourceType.ARRAY
+import br.nanotech.crypt1608kb.api.operations.enums.InsertSourceType.HASH
+import br.nanotech.crypt1608kb.api.operations.enums.InsertSourceType.RANDOM
 import br.nanotech.crypt1608kb.api.operations.generators.IntGenerator
 import br.nanotech.crypt1608kb.api.operations.generators.Natural
 import java.security.SecureRandom
