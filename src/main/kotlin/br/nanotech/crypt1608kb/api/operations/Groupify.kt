@@ -4,7 +4,6 @@ import br.nanotech.crypt1608kb.api.data.Packet
 import br.nanotech.crypt1608kb.api.data.Segment
 import br.nanotech.crypt1608kb.api.exception.InvalidCryptException
 
-
 class Groupify(packetSize: Int) : CryptOperation() {
 
     private val groupSize: Int = packetSize
@@ -47,5 +46,4 @@ class Groupify(packetSize: Int) : CryptOperation() {
             }
         }
     }
-
 }

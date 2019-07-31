@@ -13,11 +13,9 @@ class Invert : CryptOperation() {
         invert(data)
     }
 
-
     private fun invert(data: Segment) {
         data.getData().forEach { packet ->
             packet.setData(packet.getData().map { byte -> byte.inv() }.toByteArray())
         }
     }
-
 }

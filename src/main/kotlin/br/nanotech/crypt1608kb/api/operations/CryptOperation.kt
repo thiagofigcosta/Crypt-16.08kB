@@ -18,5 +18,4 @@ abstract class CryptOperation {
             unsignedBitSize + 1
         }
     }
-
 }

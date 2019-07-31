@@ -4,7 +4,6 @@ class Packet {
 
     private var data: ByteArray = ByteArray(0)
 
-
     constructor(input: Byte) {
         data = byteArrayOf(input)
     }
@@ -12,7 +11,6 @@ class Packet {
     constructor(input: ByteArray) {
         data = input
     }
-
 
     fun getSize(): Int = data.size
 

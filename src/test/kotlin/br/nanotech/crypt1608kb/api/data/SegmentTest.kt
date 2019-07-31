@@ -1,10 +1,9 @@
 package br.nanotech.crypt1608kb.api.data
 
+import kotlin.math.ceil
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
-import kotlin.math.ceil
-
 
 internal class SegmentTest {
 
@@ -12,15 +11,15 @@ internal class SegmentTest {
 
     @Test
     fun toString1() {
-        val data=Segment(rawData)
-        assertEquals(rawData,data.toString())
+        val data = Segment(rawData)
+        assertEquals(rawData, data.toString())
     }
 
     @Test
     fun toString2() {
         val packetSize = 2
-        val data=Segment(rawData,packetSize)
-        assertEquals(rawData,data.toString())
+        val data = Segment(rawData, packetSize)
+        assertEquals(rawData, data.toString())
     }
 
     @Test
@@ -36,11 +35,11 @@ internal class SegmentTest {
     }
 
     @Test
-    fun testPacketSize(){
-        val data=Segment(rawData,1)
+    fun testPacketSize() {
+        val data = Segment(rawData, 1)
         assertEquals(rawData.length, data.getSize())
-        for (i in 2..rawData.length){
-            assertEquals( ceil (rawData.length/i.toFloat()).toInt(), Segment(rawData,i).getSize())
+        for (i in 2..rawData.length) {
+            assertEquals(ceil(rawData.length / i.toFloat()).toInt(), Segment(rawData, i).getSize())
         }
     }
 }

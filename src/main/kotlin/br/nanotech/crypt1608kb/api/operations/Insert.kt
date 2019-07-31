@@ -11,7 +11,6 @@ import br.nanotech.crypt1608kb.api.operations.generators.IntGenerator
 import br.nanotech.crypt1608kb.api.operations.generators.Natural
 import java.security.SecureRandom
 
-
 class Insert(seeder: IntGenerator, iterator: IntGenerator = Natural()) : CryptOperation() {
 
     private var iterator: IntGenerator = iterator
