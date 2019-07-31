@@ -2,22 +2,30 @@ package br.nanotech.crypt1608kb.api.operations
 
 import br.nanotech.crypt1608kb.api.data.Packet
 import br.nanotech.crypt1608kb.api.data.Segment
+import br.nanotech.crypt1608kb.api.exception.InvalidCryptException
 
 
-class Groupify(packetSize:Int, maxValue:Int) : CryptOperation(){
+class Groupify(packetSize: Int, maxValue: Int) : CryptOperation() {
 
-    private val groupSize:Int = packetSize
+    private val groupSize: Int = packetSize
 
-    private val maxValue:Int = maxValue
+    private val maxValue: Int = maxValue
 
 
-    override fun crypt(data: Segment) { // TODO optimize me
+    override fun crypt(data: Segment) {
+        if (data.getSize() < groupSize) {
+            // TODO auto-remove this operation of crypt process to not stop the program
+            throw InvalidCryptException("Groupify Exception: cannot compress a Segment(${data.getSize()}) smaller than groupSize($groupSize)")
+        }
         val original = data.getData()
         data.clearData()
-        original.withIndex().groupBy { iPacket -> iPacket.index/groupSize}
-            .map { iPacketList -> iPacketList.value
-                .map { packet -> packet.value.getData() } }
-            .forEach{ listOfByteArray ->
+        data.getMeta().groupifyBy(groupSize)
+        original.withIndex().groupBy { iPacket -> iPacket.index / groupSize }
+            .map { iPacketList ->
+                iPacketList.value
+                    .map { packet -> packet.value.getData() }
+            }
+            .forEach { listOfByteArray ->
                 val listOfBytes = mutableListOf<Byte>()
                 listOfByteArray.forEach { byteArray ->
                     listOfBytes.addAll(byteArray.toList())
@@ -26,23 +34,20 @@ class Groupify(packetSize:Int, maxValue:Int) : CryptOperation(){
             }
     }
 
-    override fun decrypt(data: Segment) { // TODO optimize me
+    override fun decrypt(data: Segment) {
         val original = data.getData()
         data.clearData()
+        data.getMeta().ungroupifyBy(groupSize)
         original.map { packet -> packet.getData() }.forEach { byteArray ->
-            val byte2DList=byteArray.withIndex().groupBy { iByteArrayList -> iByteArrayList.index/groupSize}
-                .map { iPacketList -> iPacketList.value
-                    .map { packet -> packet.value } }
-            if (byte2DList.size == 1){
-                byte2DList[0].forEach{ byte ->
-                    data.getData().add(Packet(byte))
+            val byte2DList = byteArray.withIndex()
+                .groupBy { iByteArrayList -> iByteArrayList.index / data.getMeta().getGroupificationLevel() }
+                .map { iPacketList ->
+                    iPacketList.value
+                        .map { packet -> packet.value }
                 }
-            }else{
-                byte2DList.forEach { byteList ->
-                    data.getData().add(Packet(byteList.toByteArray()))
-                }
+            byte2DList.forEach { byteList ->
+                data.getData().add(Packet(byteList.toByteArray()))
             }
-
         }
     }
 

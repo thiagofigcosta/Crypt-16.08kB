@@ -8,19 +8,24 @@ class Segment{
 
     private var charset: Charset
 
+    private var meta: Metadata
+
     constructor(input: String) {
         charset=Charsets.UTF_8
+        meta = Metadata()
         setData(input)
     }
 
     constructor(input: String, charset: Charset) {
         this.charset=charset
+        meta = Metadata()
         setData(input)
     }
 
     constructor(input: String, packetSize:Int) {
         charset=Charsets.UTF_8
         data = mutableListOf()
+        meta = Metadata()
         val byteData = input.toByteArray(charset)
 
         byteData.withIndex()
@@ -33,6 +38,7 @@ class Segment{
     private constructor(data:MutableList<Packet>, charset: Charset){
         this.data=data
         this.charset=charset
+        meta = Metadata()
     }
 
     override fun toString():String{
@@ -46,6 +52,8 @@ class Segment{
     fun getSize():Int = data.size
 
     fun getData():MutableList<Packet> = data
+
+    fun getMeta():Metadata = meta
 
     fun setData(rawData:String){
         data = mutableListOf()
