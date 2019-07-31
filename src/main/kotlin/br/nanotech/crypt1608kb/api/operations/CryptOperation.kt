@@ -6,13 +6,13 @@ import kotlin.math.log2
 
 abstract class CryptOperation {
 
-    abstract fun crypt(data:Segment)
+    abstract fun encrypt(data: Segment)
 
-    abstract fun decrypt(data:Segment)
+    abstract fun decrypt(data: Segment)
 
-    protected fun getBitSize(maxValue:Int, isUnsigned:Boolean = false):Int{
+    protected fun getBitSize(maxValue: Int, isUnsigned: Boolean = false): Int {
         val unsignedBitSize = ceil(log2(maxValue.toDouble())).toInt()
-        return if(isUnsigned){
+        return if (isUnsigned) {
             unsignedBitSize
         } else {
             unsignedBitSize + 1

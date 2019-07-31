@@ -3,9 +3,9 @@ package br.nanotech.crypt1608kb.api.operations
 import br.nanotech.crypt1608kb.api.data.Segment
 import kotlin.experimental.inv
 
-class Invert : CryptOperation(){
+class Invert : CryptOperation() {
 
-    override fun crypt(data: Segment) {
+    override fun encrypt(data: Segment) {
         invert(data)
     }
 
@@ -14,7 +14,7 @@ class Invert : CryptOperation(){
     }
 
 
-    private fun invert(data: Segment){
+    private fun invert(data: Segment) {
         data.getData().forEach { packet ->
             packet.setData(packet.getData().map { byte -> byte.inv() }.toByteArray())
         }

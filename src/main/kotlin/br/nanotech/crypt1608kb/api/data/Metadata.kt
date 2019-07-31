@@ -4,17 +4,17 @@ class Metadata {
 
     private var groupificationLevel: Int = 1 // TODO reconstruct this info based on cryptkey for decrypt
 
-    fun getGroupificationLevel():Int = groupificationLevel
+    fun getGroupificationLevel(): Int = groupificationLevel
 
-    fun setCompressionLevel(groupificationLevel:Int){
-        this.groupificationLevel=groupificationLevel
+    fun setCompressionLevel(groupificationLevel: Int) {
+        this.groupificationLevel = groupificationLevel
     }
 
-    fun groupifyBy(groupSize:Int){
+    fun groupifyBy(groupSize: Int) {
         groupificationLevel *= groupSize
     }
 
-    fun ungroupifyBy(groupSize:Int){
+    fun ungroupifyBy(groupSize: Int) {
         groupificationLevel /= groupSize
     }
 }

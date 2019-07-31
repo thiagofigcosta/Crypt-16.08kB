@@ -5,16 +5,13 @@ import br.nanotech.crypt1608kb.api.data.Segment
 import br.nanotech.crypt1608kb.api.exception.InvalidCryptException
 
 
-class Groupify(packetSize: Int, maxValue: Int) : CryptOperation() {
+class Groupify(packetSize: Int) : CryptOperation() {
 
     private val groupSize: Int = packetSize
 
-    private val maxValue: Int = maxValue
-
-
-    override fun crypt(data: Segment) {
+    override fun encrypt(data: Segment) {
         if (data.getSize() < groupSize) {
-            // TODO auto-remove this operation of crypt process to not stop the program
+            // TODO auto-remove this operation of encrypt process to not stop the program
             throw InvalidCryptException("Groupify Exception: cannot compress a Segment(${data.getSize()}) smaller than groupSize($groupSize)")
         }
         val original = data.getData()

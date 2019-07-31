@@ -8,13 +8,13 @@ import kotlin.math.ceil
 
 internal class GroupifyTest {
 
-    private val groupify3 = Groupify(3,128)
+    private val groupify3 = Groupify(3)
 
     @Test
     fun cryptAndDecryptOneTime() {
         val data = Segment("oie",1)
         val original = data.clone()
-        groupify3.crypt(data)
+        groupify3.encrypt(data)
         val encrypted = data.clone()
         groupify3.decrypt(data)
         val decrypted = data.clone()
@@ -31,9 +31,9 @@ internal class GroupifyTest {
     fun cryptAndDecryptTwoTimes() {
         val data = Segment("0123456789",1)
         val original = data.clone()
-        groupify3.crypt(data)
+        groupify3.encrypt(data)
         val encrypted1 = data.clone()
-        groupify3.crypt(data)
+        groupify3.encrypt(data)
         val encrypted2 = data.clone()
         groupify3.decrypt(data)
         val decrypted1 = data.clone()
@@ -54,9 +54,9 @@ internal class GroupifyTest {
 
     @Test
     fun cryptAndDecryptWithMultipleInstances(){
-        val groupify4 = Groupify(4,128)
-        val groupify30 = Groupify(30,128)
-        val groupify17 = Groupify(17,128)
+        val groupify4 = Groupify(4)
+        val groupify30 = Groupify(30)
+        val groupify17 = Groupify(17)
         val input = """
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla rutrum risus eu neque facilisis, et tristique felis hendrerit. Suspendisse hendrerit erat velit, eu vestibulum tellus pellentesque non. Sed pellentesque pulvinar gravida. Cras bibendum elit non turpis ullamcorper rutrum. Nunc dignissim egestas augue ac sollicitudin. Maecenas nisl lectus, tincidunt at velit eu, dignissim dictum lorem. Morbi porttitor malesuada dignissim. Aliquam eros leo, iaculis eget porta vitae, malesuada gravida nibh. Donec sed ante non nunc lacinia tincidunt. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus at aliquam purus.
 
@@ -66,11 +66,11 @@ internal class GroupifyTest {
             """
         val data = Segment(input,1)
         val original = data.clone()
-        groupify30.crypt(data)
+        groupify30.encrypt(data)
         val encrypted1 = data.clone()
-        groupify17.crypt(data)
+        groupify17.encrypt(data)
         val encrypted2 = data.clone()
-        groupify4.crypt(data)
+        groupify4.encrypt(data)
         val encrypted3 = data.clone()
         groupify4.decrypt(data)
         val decrypted1 = data.clone()
@@ -98,6 +98,6 @@ internal class GroupifyTest {
     @Test(expected = InvalidCryptException::class)
     fun groupDataSmallerThanPacketSize_thenThrowException() {
         val data = Segment("oi",1)
-        groupify3.crypt(data)
+        groupify3.encrypt(data)
     }
 }
